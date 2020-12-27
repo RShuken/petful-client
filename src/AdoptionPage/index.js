@@ -81,3 +81,33 @@ addFivePeople() {
     }
 
 }
+
+
+
+// As a user interested in adopting pets, I want to adopt a pet.
+
+/*
+When I am at the front of the line:
+
+* I can see an option to adopt a pet.
+
+* When I choose to adopt a pet: 
+    * I see a confirmation that I have adopted the pet.
+    * I see my name removed from the line.
+    * I see the pet I adopted is removed from view and replaced with another pet.
+*/
+
+// this handler will take care of the confirmation after adoption has been completed
+handleConfirmAdoption() {
+
+};
+
+// this handler will take care of that the user adopting is removed from queue
+// once adoption is completed
+handleAdoption(arg) {
+    // on a submit, takes an argument that is the data from selected radio button.
+    // the argument will hold the data we need to filter through the backend data store
+    // and perform a delete on the head of both people and the list of th type of pet. 
+    // It will then re-render the updated component and render the new heads accordingly
+    // to the DOM
+}

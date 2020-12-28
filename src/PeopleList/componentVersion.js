@@ -60,19 +60,34 @@ class PeopleList extends Component {
     return fetch('http://localhost:8000/pets', requestOptions);
   };
 
-    handelCycleList = () => {
+    // handelCycleList = () => {
+    //     if (this.state.peopleList[0] === this.state.person) {
+    //         this.myStopFunction();
+    //         // history push to new page
+    //         console.log('You are next in line! Get ready to choose a new pet.')
+    //     } else {
+    //         this.removePeople('cat').then(() => {
+    //             this.addPeople('Ava').then(() => { 
+    //                 this.getPeopleList();
+    //                 console.log('there should be 5 seconds starting now');
+    //                 this.timer = setTimeout(() => this.handelCycleList(), 5000);
+    //             })
+    //         })
+    //     }
+    
+    // };
+    
+    asyncHandelCycleList = async () => {
         if (this.state.peopleList[0] === this.state.person) {
             this.myStopFunction();
             // history push to new page
             console.log('You are next in line! Get ready to choose a new pet.')
         } else {
-            this.removePeople('cat').then(() => {
-                this.addPeople('Ava').then(() => { 
-                    this.getPeopleList();
-                    console.log('there should be 5 seconds starting now');
-                    this.timer = setTimeout(() => this.handelCycleList(), 5000);
-                })
-            })
+            await this.removePeople('cat')
+            await this.addPeople('Ava')
+            this.getPeopleList();
+            console.log('there should be 5 seconds starting now');
+            this.timer = setTimeout(() => this.asyncHandelCycleList(), 5000);
         }
     
   };
@@ -89,7 +104,7 @@ class PeopleList extends Component {
                 <li>{person}</li>
               ))}
             </ul>
-            <button onClick={this.handelCycleList}>
+            <button onClick={this.asyncHandelCycleList}>
                     Start Simulate Adding/Removing People
             </button>
                 <button onClick={this.myStopFunction}>Stop Simulation</button>

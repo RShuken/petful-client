@@ -4,7 +4,7 @@ class PeopleList extends Component {
    
     constructor(props) {
         super(props);
-        this.state = { peopleList: [], person: 'Ava' }
+        this.state = { peopleList: [], person: this.props.userName }
         this.timer = null;
     }
 
@@ -78,10 +78,11 @@ class PeopleList extends Component {
     // };
     
     asyncHandelCycleList = async () => {
-        if (this.state.peopleList[0] === this.state.person) {
+      if (this.state.peopleList[0] === this.props.userName) {
+          // stop the timeout function
             this.myStopFunction();
-            // history push to new page
-            console.log('You are next in line! Get ready to choose a new pet.')
+            // push to the Adopt Page
+            window.location.href = '/adopt';
         } else {
             await this.removePeople('cat')
             await this.addPeople('Ava')
@@ -96,7 +97,9 @@ class PeopleList extends Component {
         clearTimeout(this.timer);
     }
 
-    render() { 
+  render() { 
+      
+    console.log(this.props)
         return (
           <div className='peoplelist_box'>
             <ul className='peoplelist'>

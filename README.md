@@ -1,7 +1,7 @@
 # Petful Client
 
-Live App: https://vercel.com/
-Server Repo: https://github.com/
+Live App: https://petful-client-template-lake.vercel.app/
+Server Repo: https://github.com/RShuken/petful-server
 
 ## Available Scripts
 

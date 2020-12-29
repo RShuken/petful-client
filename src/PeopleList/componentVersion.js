@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import names from '../store';
 
 class PeopleList extends Component {
    
@@ -76,8 +77,9 @@ class PeopleList extends Component {
     //     }
     
     // };
-    
-    asyncHandelCycleList = async () => {
+
+  asyncHandelCycleList = async () => {
+      const newName = names[Math.floor(Math.random() *names.length)]
       if (this.state.peopleList[0] === this.props.userName) {
           // stop the timeout function
             this.myStopFunction();
@@ -85,9 +87,9 @@ class PeopleList extends Component {
             window.location.href = '/adopt';
         } else {
             await this.removePeople('cat')
-            await this.addPeople('Ava')
+            await this.addPeople(newName)
             this.getPeopleList();
-            console.log('there should be 5 seconds starting now');
+        console.log('there should be 5 seconds starting now');
             this.timer = setTimeout(() => this.asyncHandelCycleList(), 5000);
         }
     

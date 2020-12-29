@@ -60,7 +60,8 @@ class PeopleList extends Component {
 
     return fetch('http://localhost:8000/pets', requestOptions);
   };
-
+    // I was experimenting with all of the different ways I could populate the list
+  
     // handelCycleList = () => {
     //     if (this.state.peopleList[0] === this.state.person) {
     //         this.myStopFunction();
@@ -75,7 +76,6 @@ class PeopleList extends Component {
     //             })
     //         })
     //     }
-    
     // };
 
   asyncHandelCycleList = async () => {

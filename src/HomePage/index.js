@@ -42,8 +42,8 @@ class HomePage extends Component {
   render() {
     const { person } = this.state;
     return (
-      <div className='signIn-container'>
-        <div className='signIn-form'>
+      <div className='home-container'>
+        <div className='home-form'>
           <h2>
             Adopt a new best friend!
           </h2>
@@ -63,7 +63,7 @@ class HomePage extends Component {
                 placeholder='Your Name'
               />
             </div>
-            <div className='signInFormButton'>
+            <div className='HomeSubmitButton'>
               <button type='submit' className='submitBtn'>
                 Submit
               </button>

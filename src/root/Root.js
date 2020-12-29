@@ -28,7 +28,7 @@ class Root extends Component {
         <PeopleList userName={this.state.person}/>
       <Router history={history}>
         <Switch>
-            <Route exact  path={'/'} render={() =><HomePage setPerson={this.setPerson}/>}/>
+            <Route exact path={'/'} render={() => <HomePage setPerson={this.setPerson}/> }/>
             <Route exact path={'/adopt'} component={AdoptPage}/>
             <Route exact path={'/queued'} render={() => <QueuedPage userName={this.state.person}/>}/>
             <Route exact path={'/adopted'} component={AdoptedPage}/>

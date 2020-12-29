@@ -1,6 +1,6 @@
 # Petful Client
 
-Live App: https://heroku.com/
+Live App: https://vercel.com/
 Server Repo: https://github.com/
 
 ## Available Scripts

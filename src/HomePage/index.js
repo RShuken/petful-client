@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { REACT_APP_API_BASE } from '../../config';
 
 class HomePage extends Component {
   // state here stores the user name
@@ -24,7 +25,7 @@ class HomePage extends Component {
     body: raw,
     };
 
-    fetch('http://localhost:8000/people/', requestOptions)
+    fetch(`${REACT_APP_API_BASE}/people/`, requestOptions)
       .then((result) => {
           // this is a callback function that sets state in the parent component then allows me to pass the name value as a prop.
           this.props.setPerson(this.state.person)

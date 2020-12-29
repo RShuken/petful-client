@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import names from '../store';
+import {REACT_APP_API_BASE} from '../../config'
 
 class PeopleList extends Component {
    // this constructor stores the queue waiting list and is passed a prop that is the users name. 
@@ -7,7 +8,8 @@ class PeopleList extends Component {
         super(props);
         this.state = { peopleList: [], person: this.props.userName }
         this.timer = null;
-    }
+  }
+  
     // I want the list to be populated once the component mounts.
     componentDidMount() {
         this.getPeopleList();
@@ -18,12 +20,12 @@ class PeopleList extends Component {
       method: 'GET',
     };
 
-    fetch('http://localhost:8000/people/people_list', requestOptions)
+    fetch(`${REACT_APP_API_BASE}/people/people_list`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-          this.setState({
-              peopleList: data
-          });
+        this.setState({
+          peopleList: data,
+        });
       })
       .catch((error) => console.log('error', error));
   };
@@ -41,7 +43,7 @@ class PeopleList extends Component {
       body: raw,
     };
 
-    return fetch('http://localhost:8000/people/', requestOptions);
+    return fetch(`${REACT_APP_API_BASE}/people/`, requestOptions);
   };
 
   // this is the fetch request that deletes the head of both pets and person queue. It simulates a pet being adopted. 
@@ -57,7 +59,7 @@ class PeopleList extends Component {
       body: raw,
     };
 
-    return fetch('http://localhost:8000/pets', requestOptions);
+    return fetch(`${REACT_APP_API_BASE}/pets`, requestOptions);
   };
 
     // this is an async await function that simulates the population of the que by adding a person and removing a person each 5 seconds. It uses recursion with a base case that will stop if the user name is at position 0 in the queue. 

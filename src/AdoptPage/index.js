@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { REACT_APP_API_BASE } from '../../config';
 
 class Adopt extends Component {
   // this creates a state that contains the data from the get request for the pets to be adopted. 
@@ -35,7 +36,7 @@ class Adopt extends Component {
       redirect: 'follow',
     };
 
-    fetch(`http://localhost:8000/pets`, requestOptions)
+    fetch(`${REACT_APP_API_BASE}/pet`, requestOptions)
       .then((pets) => pets.json())
       .then((pets) => this.setState({ pets }));
   }
@@ -66,7 +67,7 @@ class Adopt extends Component {
       redirect: 'follow',
     };
 
-    fetch('http://localhost:8000/pets', requestOptions)
+    fetch(`${REACT_APP_API_BASE}/pets`, requestOptions)
       .then((result) => (window.location.href = '/adopted'))
       .catch((error) => console.log('error', error));
   }

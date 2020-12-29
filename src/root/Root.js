@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import PeopleList from '../PeopleList';
+import AdoptionList from '../AdoptionWaitingList';
 import HomePage from '../HomePage';
 import AdoptPage from '../AdoptPage';
 import AdoptedPage from '../AdoptedPage';
@@ -30,7 +30,7 @@ class Root extends Component {
       <>
         <header><h1>Petful</h1></header>
         <div className='main'>
-          <PeopleList userName={this.state.person}/>
+          <AdoptionList userName={this.state.person}/>
           <Router history={history}>
           <Switch>
               <Route exact path={'/'} render={() => <HomePage setPerson={this.setPerson}/> }/>

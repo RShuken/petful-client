@@ -1,9 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component } from 'react';
+import names from '../store';
 
-const TestPeopleList = (props) => {
-  const [peopleList, setPeopleList] = useState(null);
-
-  const getPeopleList = () => {
+class PeopleList extends Component {
+   // this constructor stores the queue waiting list and is passed a prop that is the users name. 
+    constructor(props) {
+        super(props);
+        this.state = { peopleList: [], person: this.props.userName }
+        this.timer = null;
+    }
+    // I want the list to be populated once the component mounts.
+    componentDidMount() {
+        this.getPeopleList();
+    }
+    // this is the get fetch request that returns a list of people in the queue. I set state with the response then use that to populate the queue list. 
+   getPeopleList = () => {
     var requestOptions = {
       method: 'GET',
     };
@@ -11,19 +21,15 @@ const TestPeopleList = (props) => {
     fetch('http://localhost:8000/people/people_list', requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        setPeopleList(data);
+          this.setState({
+              peopleList: data
+          });
       })
       .catch((error) => console.log('error', error));
-    };
-    
-      useEffect(() => {
-    getPeopleList();
-  }, []);
-
-
-  const addPeople = (person) => {
-    console.log('add person has started');
-
+  };
+  
+    // this is the fetch post call that adds a new person to the end of the queue. 
+   addPeople = (person) => {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -35,11 +41,11 @@ const TestPeopleList = (props) => {
       body: raw,
     };
 
-    fetch('http://localhost:8000/people/', requestOptions)
-      .catch((error) => console.log('error', error));
+    return fetch('http://localhost:8000/people/', requestOptions);
   };
 
-    const removePeople = (type) => {
+  // this is the fetch request that deletes the head of both pets and person queue. It simulates a pet being adopted. 
+ removePeople = (type) => {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -51,30 +57,52 @@ const TestPeopleList = (props) => {
       body: raw,
     };
 
-    fetch('http://localhost:8000/pets', requestOptions)
-      .catch((error) => console.log('error', error));
+    return fetch('http://localhost:8000/pets', requestOptions);
   };
 
-  const handelCycleList = () => {
-    getPeopleList();
-    removePeople('cat');
-    addPeople('borat');
-    console.log('there should be 5 seconds starting now');
-    setTimeout(() => handelCycleList(), 5000);
+    // this is an async await function that simulates the population of the que by adding a person and removing a person each 5 seconds. It uses recursion with a base case that will stop if the user name is at position 0 in the queue. 
+  asyncHandelCycleList = async () => {
+      const newName = names[Math.floor(Math.random() *names.length)]
+      if (this.state.peopleList[0] === this.props.userName) {
+          // stop the timeout function
+            this.myStopFunction();
+            // push to the Adopt Page
+            window.location.href = '/adopt';
+      } else {
+        // remove a person and an animal from the queue, then add a new person to the tail of the queue, then update the waiting list. 
+            await this.removePeople('cat')
+            await this.addPeople(newName)
+            this.getPeopleList();
+        // now check again if the users name is at the top of the list.
+        if (this.state.peopleList[0] === this.props.userName) {
+          // stop the timeout function
+          this.myStopFunction();
+          // push to the Adopt Page
+          window.location.href = '/adopt';
+        }
+            this.timer = setTimeout(() => this.asyncHandelCycleList(), 5000);
+        }
   };
+    // this my stop timeout function, I had to find this online but it was fairly easy enough to get working
+    myStopFunction = () => {
+        clearTimeout(this.timer);
+    }
 
-    return peopleList ? (
-    <div className='peoplelist_box'>
-            <ul className='peoplelist'>
-        {peopleList.map(person => 
-            <li>{person}</li>)
-        }        
-      </ul>
-      <button onClick={handelCycleList}>
-        Start Simulate Adding/Removing People
-      </button>
-    </div>
-  ) : null;
-};
-
-export default TestPeopleList;
+  render() { 
+        return (
+          <div className='peoplelist_box'>
+            <h2>Adoption Waiting List</h2>
+            <ul className='peoplelist' >
+              {this.state.peopleList &&
+                this.state.peopleList.map((person) => <li key={(Math.random() *10)}>{person}</li>)}
+            </ul>
+            <button onClick={this.asyncHandelCycleList}>
+              Start Simulate Adding/Removing People
+            </button>
+            <button onClick={this.myStopFunction}>Stop Simulation</button>
+          </div>
+        );
+    }
+}
+ 
+export default PeopleList;

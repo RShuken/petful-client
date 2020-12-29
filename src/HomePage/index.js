@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 class HomePage extends Component {
+  // state here stores the user name
   constructor(props) {
     super(props);
     this.state = {
       person: '',
     };
   }
-    
+    // this handles the form submit then does a post fetch call that adds the user name to the tail of the queue. 
   handleSubmit = (e) => {
       e.preventDefault();
       
@@ -24,15 +25,17 @@ class HomePage extends Component {
     };
 
     fetch('http://localhost:8000/people/', requestOptions)
-        .then((result) => {
-            this.props.setPerson(this.state.person)
+      .then((result) => {
+          // this is a callback function that sets state in the parent component then allows me to pass the name value as a prop.
+          this.props.setPerson(this.state.person)
+          // here I use history to push the state and move the user to the queued page. I used this in my past capstone so I wanted to try it again. 
             this.props.history.push({
             pathname: '/queued',
             state: {name: this.state.name}
           })})
       .catch((error) => console.log('error', error));
   };
-
+  // this is the on change function that updates state based on the form values. 
   handleName = (e) => {
     this.setState({
       person: e.target.value,
@@ -53,7 +56,7 @@ class HomePage extends Component {
 
           <form onSubmit={this.handleSubmit}>
             <div className='form-control'>
-              <label htmlFor='name'>Name </label>
+              <label htmlFor='person'>Name </label>
               <input
                 required
                 type='text'

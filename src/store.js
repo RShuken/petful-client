@@ -1,3 +1,4 @@
+// this is a large list of names that I use to randomly pull new names for the Adoption list component. 
 const names = [
   'Aaran',
   'Aaren',
@@ -2739,4 +2740,4 @@ const names = [
   'Zuriel',
 ];
 
-export default names; 
+export default names;

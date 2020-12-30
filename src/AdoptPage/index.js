@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { REACT_APP_API_BASE } from '../../config';
+import { REACT_APP_API_BASE } from '../config';
 
 class Adopt extends Component {
   // this creates a state that contains the data from the get request for the pets to be adopted. 

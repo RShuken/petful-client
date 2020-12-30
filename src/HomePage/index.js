@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { REACT_APP_API_BASE } from '../../config';
+import { REACT_APP_API_BASE } from '../config';
 
 class HomePage extends Component {
   // state here stores the user name

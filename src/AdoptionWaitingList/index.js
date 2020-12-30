@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import names from '../store';
-import {REACT_APP_API_BASE} from '../config'
+import { REACT_APP_API_BASE } from '../config'
 
 class PeopleList extends Component {
    // this constructor stores the queue waiting list and is passed a prop that is the users name. 

@@ -36,7 +36,7 @@ class Adopt extends Component {
       redirect: 'follow',
     };
 
-    fetch(`${REACT_APP_API_BASE}/pet`, requestOptions)
+    fetch(`${REACT_APP_API_BASE}/pets`, requestOptions)
       .then((pets) => pets.json())
       .then((pets) => this.setState({ pets }));
   }
@@ -54,7 +54,8 @@ class Adopt extends Component {
     );
   }
   // this function handles the click by doing a delete fetch request that removes the type of selected pet and the person at the head of the queue. 
-  handleClickAdopt(type) {
+  handleClickAdopt(e, type) {
+    e.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -82,21 +83,21 @@ class Adopt extends Component {
         </p>
         <form
           className='select-dog'
-          onSubmit={() => this.handleClickAdopt('dog')}
+          onSubmit={(e) => this.handleClickAdopt(e,'dog')}
         >
           <div className='dog-card'>
             {this.createPetCard(this.state.pets.dog)}
           </div>
-          <button className='adopt-dog'>Adopt Dog</button>
+          <button type='submit' className='adopt-dog'>Adopt Dog</button>
         </form>
         <form
           className='select-cat'
-          onSubmit={() => this.handleClickAdopt('cat')}
+          onSubmit={(e) => this.handleClickAdopt(e,'cat')}
         >
           <div className='cat-card'>
             {this.createPetCard(this.state.pets.cat)}
           </div>
-          <button className='adopt-cat'>Adopt Cat</button>
+          <button type='submit' className='adopt-cat'>Adopt Cat</button>
         </form>
       </div>
     );

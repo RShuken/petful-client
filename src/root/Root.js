@@ -30,7 +30,7 @@ class Root extends Component {
       <>
         <header><h1>Petful</h1></header>
         <div className='main'>
-          <AdoptionList userName={this.state.person}/>
+          <AdoptionList userName={this.state.person} />
           <Router history={history}>
           <Switch>
               <Route exact path={'/'} render={() => <HomePage setPerson={this.setPerson}/> }/>
